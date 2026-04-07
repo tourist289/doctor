@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Single Page Site</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="styles.css">
+
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+
+  <style>
+    :root {
+      --color-blue: #1F519C;
+      --color-beige-light: #EFEEE2;
+      --color-beige-m: #E8E6D6;
+      --color-beige-d: #E2DFCD;
+      --color-orange: #FD943E;
+    }
+
+    body {
+      font-size: 14px;
+      line-height: 155%;
+      font-family: "Inter", sans-serif;
+      letter-spacing: 4%;
+    }
+
+    @media screen and (min-width: 750px) {
+      body {
+        font-size: 17px;
+      }
+    }
+
+    .yeseva-one-regular {
+      /* font-family: "Literata", serif;
+      font-family: "Playfair", serif;
+      font-family: "Inter", sans-serif;
+      font-family: "Roboto", sans-serif;
+      font-family: "Yeseva One", serif;
+
+      font-weight: 400;
+      font-style: normal; */
+    }
+    
+
+    /* Лоадер */
+    .page-loader {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    /* Картинка */
+    .loader-img {
+      width: 80%;
+      max-width: 800px;
+      will-change: transform;
+      transition: 
+        transform 0.5s cubic-bezier(0.455, 0.03, 0.415, 0.955),
+        width 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
+    }
+
+    /* Анімація зменшення і руху */
+    .page-loader.animate .loader-img {
+      width: 60px;
+      transform: translate(-45vw, -40vh);
+    }
+
+    /* Сховати */
+    .page-loader.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="page-loader">
+    <img src="assets/logo2.png" alt="Loading" class="loader-img">
+  </div>
+
+
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <img src="assets/logo--sm.png" alt="Logo">
+      </div>
+      <button class="hamburger" id="hamburgerBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="header-right" id="headerRight">
+        <ul class="nav-links" id="navMenu">
+          <li><a href="#directions">Напрямки роботи</a></li>
+          <li><a href="#about">Про мене</a></li>
+          <li><a href="#approach">Мій підхід</a></li>
+          <li><a href="#certificates">Сертифікати</a></li>
+          <li><a href="#contacts">Контакти</a></li>
+          <li><a class="button button--switcher" href="#en">EN</a></li>
+        </ul>
+        <div class="header-row2" style="gap: 25px; font-size: 14px;">
+          <p><a href="tel:+380631766891">Viber: +38 063 176 6891</a></p>
+          <p><a href="https://wa.me/380674516998">WhatsApp: +38 067 451 6998</a></p>
+          <p class="small-hide">
+            <a href="https://www.facebook.com/">
+              <svg class="icon icon-fb" width="30" height="30" viewBox="0 0 30 30" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_56_25)">
+                  <path
+                    d="M14.9986 2.18838C22.0616 2.18838 27.8089 7.93563 27.8089 14.9986C27.8089 22.0616 22.0616 27.8089 14.9986 27.8089C7.93563 27.8089 2.18838 22.0644 2.18838 14.9986C2.18838 7.93289 7.93563 2.18838 14.9986 2.18838ZM14.9986 0C6.7156 0 0 6.7156 0 14.9986C0 23.2817 6.7156 29.9973 14.9986 29.9973C23.2817 29.9973 29.9973 23.2817 29.9973 14.9986C29.9973 6.7156 23.2844 0 14.9986 0Z"
+                    fill="white" />
+                  <path
+                    d="M18.8009 15.0041H16.3144V23.8698H12.6297V15.0041H10.8762V11.8719H12.6297V9.84496C12.6297 8.39515 13.319 6.12744 16.3472 6.12744L19.0772 6.13838V9.1775H17.0967C16.7712 9.1775 16.3144 9.33889 16.3144 10.031V11.8747H19.121L18.7982 15.0041H18.8009Z"
+                    fill="white" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_56_25">
+                    <rect width="30" height="30" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </a>
+          </p>
+
+          <ul class="header__social large-up-hide">
+            <li class="instagram">
+              <a href="https://www.instagram.com/">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_56_17)">
+                    <path
+                      d="M15 2.18838C22.0637 2.18838 27.8114 7.93563 27.8114 14.9986C27.8114 22.0616 22.0637 27.8089 15 27.8089C7.93635 27.8089 2.18858 22.0644 2.18858 14.9986C2.18858 7.93289 7.93635 2.18838 15 2.18838ZM15 0C6.71621 0 0 6.7156 0 14.9986C0 23.2817 6.71621 29.9973 15 29.9973C23.2838 29.9973 30 23.2817 30 14.9986C30 6.7156 23.2865 0 15 0Z"
+                      fill="white" />
+                    <path
+                      d="M21.0815 7.39697H8.92121C8.08134 7.39697 7.40015 8.08084 7.40015 8.9179V21.0771C7.40015 21.9169 8.08408 22.598 8.92121 22.598H21.0815C21.9214 22.598 22.6026 21.9142 22.6026 21.0771V8.9179C22.6026 8.07811 21.9187 7.39697 21.0815 7.39697ZM15 11.9598C16.6743 11.9598 18.0394 13.3248 18.0394 14.9989C18.0394 16.673 16.6743 18.038 15 18.038C13.3257 18.038 11.9606 16.673 11.9606 14.9989C11.9606 13.3248 13.3257 11.9598 15 11.9598ZM9.29874 21.0798C9.07168 21.0798 8.92121 20.9267 8.92121 20.7023V14.2411H10.5189C10.4395 14.4709 10.4395 14.7773 10.4395 15.0016C10.4395 17.5128 12.4913 19.5644 15.0027 19.5644C17.5141 19.5644 19.5659 17.5128 19.5659 15.0016C19.5659 14.7746 19.5659 14.4709 19.4893 14.2411H21.0843V20.7023C21.0843 20.9294 20.9311 21.0798 20.7067 21.0798H9.30148H9.29874ZM21.0815 10.8191C21.0815 11.0461 20.9283 11.1966 20.704 11.1966H19.1829C18.9559 11.1966 18.8054 11.0434 18.8054 10.8191V9.29813C18.8054 9.07109 18.9586 8.92063 19.1829 8.92063H20.704C20.9311 8.92063 21.0815 9.07382 21.0815 9.29813V10.8191Z"
+                      fill="white" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_56_17">
+                      <rect width="30" height="30" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </a>
+            </li>
+            <li class="fb">
+              <a href="https://www.facebook.com/">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_56_25)">
+                    <path
+                      d="M14.9986 2.18838C22.0616 2.18838 27.8089 7.93563 27.8089 14.9986C27.8089 22.0616 22.0616 27.8089 14.9986 27.8089C7.93563 27.8089 2.18838 22.0644 2.18838 14.9986C2.18838 7.93289 7.93563 2.18838 14.9986 2.18838ZM14.9986 0C6.7156 0 0 6.7156 0 14.9986C0 23.2817 6.7156 29.9973 14.9986 29.9973C23.2817 29.9973 29.9973 23.2817 29.9973 14.9986C29.9973 6.7156 23.2844 0 14.9986 0Z"
+                      fill="white" />
+                    <path
+                      d="M18.8009 15.0041H16.3144V23.8698H12.6297V15.0041H10.8762V11.8719H12.6297V9.84496C12.6297 8.39515 13.319 6.12744 16.3472 6.12744L19.0772 6.13838V9.1775H17.0967C16.7712 9.1775 16.3144 9.33889 16.3144 10.031V11.8747H19.121L18.7982 15.0041H18.8009Z"
+                      fill="white" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_56_25">
+                      <rect width="30" height="30" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </a>
+            </li>
+            <li class="twitter">
+              <a href="#">
+                <svg width="30" height="31" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_56_21)">
+                    <path
+                      d="M15 2.20987C22.0637 2.20987 27.8114 8.01356 27.8114 15.1459C27.8114 22.2783 22.0637 28.082 15 28.082C7.93635 28.082 2.18858 22.2811 2.18858 15.1459C2.18858 8.01079 7.93635 2.20987 15 2.20987ZM15 0C6.71621 0 0 6.78155 0 15.1459C0 23.5103 6.71621 30.2918 15 30.2918C23.2838 30.2918 30 23.5103 30 15.1459C30 6.78155 23.2865 0 15 0Z"
+                      fill="white" />
+                    <path
+                      d="M15.9685 9.94453V5.94189H13.4106C13.3531 6.0883 13.3258 6.26509 13.3258 6.44464C13.2984 6.53027 13.2683 6.59381 13.2683 6.6822C13.0057 8.16558 12.2424 9.20146 10.9511 9.76774C10.5681 9.94729 10.2152 9.97215 9.83496 9.94729V13.1737H11.7144C11.7445 17.7122 11.7445 20.0547 11.7445 20.1735V20.4414C11.9798 22.422 13.0057 23.6098 14.8277 24.0546C15.5608 24.259 16.3515 24.3501 17.1448 24.3501C18.1707 24.317 19.1693 24.1402 20.1678 23.817V20.0216C19.5851 20.1983 19.0516 20.3503 18.5838 20.4967C17.6756 20.7646 16.9123 20.5878 16.2913 19.9939C16.2338 19.9028 16.1463 19.784 16.1162 19.6652C16.0287 19.1901 15.9739 18.6873 15.9739 18.215V13.1737H20.0502V9.94729H15.9712L15.9685 9.94453Z"
+                      fill="white" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_56_21">
+                      <rect width="30" height="30.2946" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </a>
+            </li>
+          </ul>
+
+        </div>
+        <div class="header-row3" style="gap: 40px; font-size: 14px;">
+          <p><a href="mailto:Voloshyntaras1984@gmail.com">Email: Voloshyntaras1984@gmail.com</a></p>
+          <p><a class="button" href="#prices">Ціна станом на 2026 рік</a></p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="section-hero section">
+     <div class="container hero-content">
+      <div class="section-title" data-aos="fade-up" data-aos-delay="40">
+        <h1>ТАРАС ВОЛОШИН <em>MD PhD</em></h1>
+      </div>
+      
+      <div class="hero-text">
+        <!-- <h1>ТАРАС ВОЛОШИН MD PhD</h1> -->
+        <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="40">Лікар-невролог, медичний психолог, кандидат медичних наук.</p>
+
+        <p class="hero-credentials" data-aos="fade-up" data-aos-delay="200">
+          Член-корекспондент Європейської Академії Неврології (Ментор Академії, група керівників наукових панелей по
+          нейрореабілітації та дитячій неврології, RRFS національний представник від України 2017-2022), Американської
+          Академії Неврології (International Scholarship Award 2023, Бостон, США) Європейської Академії Дитячої
+          Інвалідності (EACD), Міжнародної Асоціації Дитячих Неврологів (ICNA), Асоціації Рухових Розладів (MDS) США,
+          Європейської Хіропрактичної Асоціації, Експерт Єврокомісії.
+        </p>
+
+        <div class="hero-approach" data-aos="fade-up" data-aos-delay="300">
+          <p><em>Комплексний підхід: неврологія, психологія, реабілітація</em></p>
+        </div>
+
+        <a href="#about" class="cta-button" data-aos="fade-up" data-aos-delay="400">Читати про мене</a>
+      </div>
+
+      <div class="hero-image" data-aos="fade-up" data-aos-delay="400">
+        <img src="assets/img-2.png" alt="Тарас Волошин" width="413" height="364">
+      </div>
+    </div>
+  </section>
+
+  <section id="directions" class="directions section">
+     <div class="container">
+      <div class="section-title" data-aos="fade-up" data-aos-delay="200">
+        <h2>НАПРЯМКИ <em>РОБОТИ</em></h2>
+      </div>
+
+      <div class="grid">
+        <article class="direction-item" data-aos="fade-up" data-aos-delay="100">
+          <div class="icon"><img src="assets/directions-1.png"  loading="lazy" alt="direction 1"></div>
+          <h3>Лікування аутизму та порушень мови/поведінки/соціалізації</h3>
+          <p>Робота з дітьми із розладами аутичного спектру (РАС), затримками мовленнєвого та психоемоційного
+            розвитку.... </p>
+        </article>
+
+        <article class="direction-item" data-aos="fade-up" data-aos-delay="200">
+          <div class="icon"><img src="assets/directions-3.png" loading="lazy" alt="direction 2"></div>
+          <h3>ДЦП</h3>
+          <p>Багаторічний досвід роботи, також з дітьми з церебральним паралічем....</p>
+        </article>
+
+        <article class="direction-item" data-aos="fade-up" data-aos-delay="300">
+          <div class="icon"><img src="assets/directions-2.png" loading="lazy" alt="direction 3"></div>
+          <h3>Інша неврологічна патологія</h3>
+          <p>Допомога при широкому спектрі неврологічних захворювань у дітей і дорослих....</p>
+        </article>
+
+        <article class="direction-item" data-aos="fade-up" data-aos-delay="400">
+          <div class="icon"><img src="assets/directions-4.png" loading="lazy" alt="direction 4"></div>
+          <h3>Грижі та протрузії міжхребцевих дисків</h3>
+          <p>Комплексна допомога пацієнтам з болями у спині, мігренню, порушеннями рухливості, наслідками травм та
+            інсультів....</p>
+        </article>
+
+        <article class="direction-item" data-aos="fade-up" data-aos-delay="500">
+          <div class="icon"><img src="assets/directions-5.png" loading="lazy" alt="direction 5"></div>
+          <h3>ЕЕГ <br> (електроенцефалографія)</h3>
+          <p>Діагностичне дослідження біоелектричної активності головного мозку у дітей та дорослих. Застосовується для
+            оцінки функціонального стану мозку та виявлення порушень у його роботі, виявлення епілепсії... </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="prices" class="section-prices section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up" data-aos-delay="200">
+        <h2>ЦІНИ <em>СТАНОМ НА 2026 РІК:</em></h2>
+      </div>
+
+      <div class="grid">
+        <div class="item" data-aos="fade-up" data-aos-delay="100">
+          <p>Консультація первинна:</p>
+          <em>850 грн.</em>
+        </div>
+        <div class="item" data-aos="fade-up" data-aos-delay="200">
+          <p>Корекція хребта:</p>
+          <em>500 грн.</em>
+        </div>
+        <div class="item" data-aos="fade-up" data-aos-delay="300">
+          <p>ЕЕГ обстеження:</p>
+          <em>1000 грн.</em>
+        </div>
+        <div class="item" data-aos="fade-up" data-aos-delay="400">
+          <p>Корекція хребта з рефлексотерапією:</p>
+          <em>850 грн.</em>
+        </div>
+        <div class="item" data-aos="fade-up" data-aos-delay="500">
+          <p>Корекція хребта з рефлекотерапією та мобілізацією периферичних суглобів:</p>
+          <em>1200 грн.</em>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section-about section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up" data-aos-delay="200">
+        <h2>ПРО <em>МЕНЕ</em></h2>
+      </div>
+
+      <div class="content-wrapper">
+        <p style="text-align: center;width: 90%;display: block;max-width: 1000px;margin-inline: auto;" data-aos="fade-up" data-aos-delay="200">Спеціалізуюся на діагностиці, лікуванні та реабілітації неврологічних розладів у дорослих та дітей.Робота у
+          міжнародних реабілітаційних клініках Kozyavkin Group (Україна, Кіпр, ОАЕ, Саудівська Аравія) з 2009 року, а
+          також на кафедрі фізичної терапії, реабілітації та ерготерапії  ДДПУ. <span>Моя мета-допомогти пацієнтам
+            відновити здоров’я і психологічне благополуччя через комплексний підхід: неврологія, психологія,
+            реабілітація.</span></p>
+
+        <div class="grid">
+          <button class="item" data-title="Про лікаря" data-target="#about-1" data-aos="fade-up" data-aos-delay="200">Про лікаря</button>
+          <button class="item" data-title="Наукова робота" data-target="#about-2" data-aos="fade-up" data-aos-delay="300">Наукова робота</button>
+          <button class="item" data-title="Лікувальна робота" data-target="#about-3" data-aos="fade-up" data-aos-delay="400">Лікувальна робота</button>
+          <button class="item" data-title="Міжнародна співпраця" data-target="#about-4" data-aos="fade-up" data-aos-delay="500">Міжнародна співпраця</button>
+        </div>
+
+        <!-- Modal (reusable) -->
+        <div id="aboutModal" class="modal" aria-hidden="true">
+          <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="aboutModalTitle">
+            <button class="modal-close" aria-label="Close">×</button>
+            <h3 id="aboutModalTitle" class="modal-title"></h3>
+            <div class="modal-body">
+
+              <!-- Hidden modal contents -->
+              <div id="about-1" class="modal-content hidden">
+                <h4>Про лікаря</h4>
+                <p>
+                  Закінчив Львівський національний медичний університет імені Данила Галицького
+                  (медичний факультет) у 2007 році.
+                </p>
+
+                <p>
+                  У 2007–2009 роках проходив інтернатуру з неврології на базі
+                  Рівненської центральної районної лікарні та
+                  Львівської обласної клінічної лікарні.
+                </p>
+
+                <p>
+                  У червні 2018 року в ДУ «Інститут неврології, психіатрії та наркології НАМН України»
+                  захистив кандидатську дисертацію на тему
+                  «Клініко-психологічні особливості пацієнтів з РАС, їх реабілітація за допомогою СІНР».
+                </p>
+
+                <h4>Освіта та професійна діяльність</h4>
+
+                <ul>
+                  <li>2001–2007 — Львівський національний медичний університет</li>
+                  <li>2007–2009 — Інтернатура з неврології</li>
+                  <li>2009 – дотепер — Лікар-невролог</li>
+                  <li>З 2014 року — Науковець, лікар-консультант Інституту медичної реабілітації</li>
+                  <li>2018 — Кандидат медичних наук (PhD)</li>
+                  <li>З 2018 року — Медичний психолог</li>
+                  <li>З 2022 року — Лікар першої категорії</li>
+                  <li>З 2025 року — Викладач кафедри фізичної реабілітації та ерготерапії ДДПУ</li>
+                </ul>
+
+                <h4>Міжнародна практика</h4>
+
+                <p>
+                  Міжнародні реабілітаційні клініки Kozyavkin Group (філії у Трускавці та Львові — Україна,
+                  Ларнаці — Кіпр, Аль-Айні та Абу-Дабі — ОАЕ, Дахрані — Саудівська Аравія, Кувейті).
+                </p>
+
+                <h4>Мови</h4>
+
+                <ul>
+                  <li>Українська — 5/5</li>
+                  <li>Англійська — 5/5</li>
+                  <li>Російська — 5/5</li>
+                  <li>Польська — 5/5</li>
+                  <li>Німецька — 4/5</li>
+                  <li>Арабська — 3/5</li>
+                </ul>
+
+              </div>
+
+              <div id="about-2" class="modal-content hidden">
+                <h4>Наукова робота</h4>
+
+                <p>
+                  Учасник численних українських та міжнародних конгресів і симпозіумів.
+                  Автор понад 60 наукових публікацій та 2 монографій.
+                </p>
+
+                <p>
+                  Член Всесвітньої Асоціації Психіатрії (WCP).
+                </p>
+
+                <p>
+                  Член Американської Академії Неврології (www.aan.org), лауреат міжнародної стипендії 2023 року.
+                </p>
+
+                <p>
+                  Член Європейської Асоціації Психіатрії (www.europsy.net)
+                  та Європейської Академії Неврології (www.ean.org),
+                  національний представник від України у 2017–2022 роках.
+                </p>
+
+                <p>
+                  Член Європейського Товариства Дитячої Неврології (www.epns.info),
+                  Європейської Академії Дитячої Інвалідності (www.eacd.org)
+                  та Східноєвропейської академії дитячої інвалідності (www.eeacd.org).
+                </p>
+
+                <p>
+                  Член Міжнародного товариства Паркінсонізму та рухових розладів
+                  (www.movementdisorders.org).
+                </p>
+
+                <p>
+                  Експерт Європейської Комісії (PIC 905538457).
+                  Грантоотримувач 7-ї Рамкової програми ЄС «Game-Abling» (2012–2014, №315032).
+                </p>
+
+                <p>
+                  Учасник навчальної програми «CoCoCare» (червень 2019 – червень 2020),
+                  співфінансованої програмою Erasmus+ Європейського Союзу.
+                </p>
+
+                <p>
+                  Академічний експерт групи з нейронаук та епілепсії connect4children
+                  (з квітня 2019 року дотепер), проєкт ЄС із бюджетом 140 млн євро.
+                </p>
+
+
+                <ul>
+                  <li>1-й та 2-й Всеслов'янський конгрес дитячої неврології (Блед, Словенія, вересень 2012; 23–25 квітня
+                    2014) — основний доповідач на передконгресному симпозіумі</li>
+
+                  <li>4-й Балтійський конгрес з дитячої неврології (3–4 червня 2013)</li>
+
+                  <li>3-й та 5-й DIAA EXPO (Ер-Ріяд, Саудівська Аравія, 5–7 квітня 2016) — основний доповідач</li>
+
+                  <li>28-ма конференція EACD «Challenge the Boundaries» (Стокгольм, Швеція, 1–4 червня 2016)</li>
+
+                  <li>11-й Укр-Баварський симпозіум (Київ, 29–30 вересня 2016) — основний доповідач</li>
+
+                  <li>1-а конференція «Метод INRS», Medical Excellence Center (Аль-Хобар, KSA, 30 жовтня 2016)</li>
+
+                  <li>GDBPCON (Пуна, Індія, 10–11 грудня 2016) — головний доповідач / викладач</li>
+
+                  <li>29-та конференція EACD «Кроки в майбутнє» (Амстердам, Нідерланди, 17–20 травня 2017)</li>
+
+                  <li>VII Балтійський конгрес (8–9 червня 2017)</li>
+
+                  <li>1-а українсько-польська конференція «Ogólny problem wzrostu liczby dzieci z problemami porażeń
+                    mózgowych...» (Сянок, Польща, 29 вересня 2017) — основний доповідач</li>
+
+                  <li>Конгрес MENA (Дубай, ОАЕ, листопад 2018) — основний доповідач</li>
+
+                  <li>30-та конференція EACD (Тбілісі, Грузія, травень 2018)</li>
+
+                  <li>Школи MDS (Брідженд, Уельс, 2–4 листопада 2018; Гронінген, Нідерланди, 22–23 листопада 2018)</li>
+
+                  <li>Конференція ICNC (Мумбаї, Індія, 15–18 листопада 2018)</li>
+
+                  <li>Конгрес EPA (Варшава, Польща, 6–9 квітня 2019)</li>
+
+                  <li>Конференція EACD (Париж, Франція, 22–25 травня 2019) — доповідач</li>
+
+                  <li>1-ша конференція за методом Козявіна (Ель-Кувейт, Кувейт, 24 червня 2019) — основний доповідач
+                  </li>
+
+                  <li>5-й Конгрес EAN (Осло, Норвегія, 29 червня – 2 липня 2019)</li>
+
+                  <li>1-ша Літня школа для неврологів EACD (Піза, Італія, 15–19 липня 2019)</li>
+
+                  <li>Осіння школа EAN (Лутракі, Греція, 17–21 жовтня 2019)</li>
+
+                  <li>3-тя школа нейромодуляції рухових розладів (Барселона, Іспанія, 5–7 вересня 2019)</li>
+
+                  <li>Міжнародний симпозіум FOREM (Алжир, Константин, 7–15 березня 2020)</li>
+
+                  <li>Міжнародна конференція до Дня людей з інвалідністю (Алжир, 12 березня 2020)</li>
+
+                  <li>EAN 2020 (23–26 травня 2020, Париж, віртуальний конгрес) — доповідач та голова сесії</li>
+
+                  <li>Літній клінічний інститут досліджень залежностей (Сан-Дієго, Каліфорнія, 2–3 червня 2020)</li>
+
+                  <li>IACAPAP20 (Сінгапур, 20–23 липня 2020)</li>
+
+                  <li>8-й Конгрес EAPS (16–19 жовтня 2020) — доповідач на сесії молодих дослідників ESPR</li>
+
+                  <li>11-й Всесвітній конгрес з нейрореабілітації (7–11 жовтня 2020) — 4 найкращі усні доповіді</li>
+
+                  <li>Віртуальний конгрес MDS (12–16 вересня 2020; 2021, Мілуокі, США)</li>
+
+                  <li>29-й Європейський конгрес психіатрії (10–13 квітня 2021)</li>
+
+                  <li>76-та щорічна зустріч AACPDM (Лас-Вегас, США, 21–24 вересня 2022)</li>
+
+                  <li>Весняна школа EAN (Зальцбург, Австрія, 17–22 березня 2023)</li>
+
+                  <li>75-й Конгрес Американської академії неврології (Бостон, США, 22–27 квітня 2023)</li>
+
+                  <li>23-й Всесвітній конгрес психіатрії (Відень, Австрія, 28 вересня – 1 жовтня 2023)</li>
+
+                  <li>10-й Конгрес EAN (Гельсінкі, Фінляндія, 29 червня – 2 липня 2024)</li>
+
+                  <li>36-та конференція EACD (Брюгге, Бельгія, 29 травня – 1 червня 2024)</li>
+
+                  <li>4-та трирічна зустріч IAACD (Гейдельберг, Німеччина, 24–28 червня 2025)</li>
+
+                  <li>11-й Конгрес EAN (Гельсінкі, Фінляндія, 21–24 червня 2025)</li>
+
+                  <li>Міжнародний конгрес MDS (Гаваї, США, 5–9 жовтня 2025)</li>
+                </ul>
+
+
+                <h4>Публікації за останні роки:</h4>
+                <ol>
+
+                  <li>
+                    <strong>EPO3084 Psychoemotional distress in parents of patients with Autism Spectrum Disorders: a
+                      cohort study</strong><br>
+                    European Journal of Neurology, Volume 27, Supplement 1, May 2020, p.1068<br>
+                    https://www.ean.org/fileadmin/user_upload/ean/congress-2020/Present/Abstracts/00_EAN_Journal_2020_Book.pdf
+                  </li>
+
+                  <li>
+                    <strong>Movement Disorders</strong>, Vol. 39 (Suppl. 1), 2024, pp. S897–S934, p.526–557<br>
+                    DOI: https://doi.org/10.1002/mds.29981<br>
+                    https://movementdisorders.onlinelibrary.wiley.com/doi/10.1002/mds.29981
+                  </li>
+
+                  <li>
+                    <strong>Movement Disorders</strong>, Volume 35, Number S1, September 2020<br>
+                    DOI: https://doi.org/10.1002/mds.28267
+                  </li>
+
+                  <li>
+                    <strong>Movement Disorders</strong>, Vol. 34, Suppl. S2, 2019, pp. S931–S970<br>
+                    DOI: https://doi.org/10.1002/mds.27795
+                  </li>
+
+                  <li>
+                    <strong>Developmental Medicine & Child Neurology</strong>, Volume 60, p.59<br>
+                    DOI: https://doi.org/10.1111/dmcn.13790
+                  </li>
+
+                  <li>
+                    <strong>Міжнародний неврологічний журнал</strong>, 2019, №1, с.17–25<br>
+                    http://nbuv.gov.ua/UJRN/Mnzh_2019_1_5
+                  </li>
+
+                  <li>
+                    <strong>Impairment of neurological ontogenesis in children with Autism Spectrum Disorders: cohort
+                      study</strong><br>
+                    Developmental Medicine & Child Neurology, Volume 61 (Suppl. 1), 2019, p.91<br>
+                    DOI: https://doi.org/10.1111/dmcn.14120
+                  </li>
+
+                  <li>
+                    <strong>Developmental Medicine & Child Neurology</strong>, Volume 62, Issue S4, 2020, p.32<br>
+                    DOI: https://doi.org/10.1111/dmcn.14688
+                  </li>
+
+                  <li>
+                    <strong>Developmental Medicine & Child Neurology</strong>, Volume 64, Issue S4, 2022, p.91<br>
+                    DOI: https://doi.org/10.1111/dmcn.15356
+                  </li>
+
+                  <li>
+                    <strong>Developmental Medicine & Child Neurology</strong>, 2019, 61 (Suppl. 2), p.4<br>
+                    DOI: https://doi.org/10.1111/dmcn.14244
+                  </li>
+
+                  <li>
+                    <strong>Treatment for ASD: Are we moving in the correct direction?</strong> T. Voloshyn<br>
+                    Dev Med Child Neurol, Vol.64, p.88<br>
+                    DOI: https://doi.org/10.1111/dmcn.15215
+                  </li>
+
+                  <li>
+                    <strong>EPO1075 ASD – what are we waiting for?: A 6-year follow-up study</strong><br>
+                    European Journal of Neurology, 26 (Suppl. 1)<br>
+                    DOI: https://doi.org/10.1111/ene.14019
+                  </li>
+
+                  <li>
+                    <strong>EPO3084 Psychoemotional distress in parents of patients with Autism Spectrum Disorders: a
+                      cohort study</strong><br>
+                    European Journal of Neurology, 27 (Suppl. 1), p.1068<br>
+                    DOI: https://doi.org/10.1111/ene.14308
+                  </li>
+
+                  <li>
+                    <strong>EPV-997 | Rehabilitation approach for treatment of children with ASD</strong><br>
+                    Eur J Neurol, 31, 2024, p.912<br>
+                    DOI: https://doi.org/10.1111/ene.16340
+                  </li>
+
+                  <li>
+                    <strong>Inter-relation between hand functioning, cognition and quality of life of CP children:
+                      prospective randomized study</strong><br>
+                    Dev Med Child Neurol, 63, p.59<br>
+                    DOI: https://doi.org/10.1111/dmcn.14749
+                  </li>
+
+                  <li>
+                    <strong>Correlation bond between hand functioning, cognition and quality of life of CP children:
+                      prospective randomized study</strong><br>
+                    Eur J Neurol, 29, 2022<br>
+                    DOI: https://doi.org/10.1111/ene.15467
+                  </li>
+
+                  <li>
+                    <strong>Journal of Pediatric Gastroenterology and Nutrition</strong>, Volume 76, Issue S1, June
+                    2023<br>
+                    DOI: https://doi.org/10.1097/MPG.0000000000003823
+                  </li>
+
+                  <li>
+                    <strong>Influence of Spinal Manipulation on Muscle Spasticity and Manual Dexterity in Participants
+                      With Cerebral Palsy: Randomized Controlled Trial</strong><br>
+                    Journal of Chiropractic Medicine, 2018, Vol.17(3):141–150<br>
+                    DOI: https://doi.org/10.1016/j.jcm.2018.03.004
+                  </li>
+                </ol>
+
+              </div>
+
+              <div id="about-3" class="modal-content hidden">
+                <h4>Лікувальна робота</h4>
+                <p>Проліковано більше 10 тисяч пацієнтів з рухливими та психомовними порушеннями.</p>
+              </div>
+
+              <div id="about-4" class="modal-content hidden">
+                <h4>Міжнародна співпраця</h4>
+                <p>Відвідав 80 країн світу з метою вивчення передових технологій в різних країнах.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="approach" class="section-approach section">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up" data-aos-delay="200">
+        <h2>МІЙ <em>ПІДХІД</em></h2>
+      </div>
+
+      <div class="content-wrapper">
+        <p style="text-align: center; padding-inline: 5%;" data-aos="fade-up" data-aos-delay="200">Я сформував свою філософію лікування і переконаний, що
+          справжня неврологія-це не набір окремих процедур, а комплексний міждисциплінарний підхід до відновлення
+          функцій нервової системи та психіки. </p>
+        <p style="text-align: center; font-style: italic; font-weight: 600;" data-aos="fade-up" data-aos-delay="300">Тому я:</p>
+
+        <div class="grid">
+          <div class="">
+            <ul class="list list--check">
+              <li data-aos="fade-up" data-aos-delay="400">Розглядаю центральну нервову систему, опорно-руховий апарат і психоемоційний стан як єдину
+                взаємопов’язану систему;</li>
+              <li data-aos="fade-up" data-aos-delay="400">Використовую принципи нейропластичності для відновлення функцій мозку і поведінки;</li>
+              <li data-aos="fade-up" data-aos-delay="400">Впроваджую міжнародні протоколи з дитячої та дорослої неврології, медичної психології та
+                нейрореабілітації;</li>
+              <li data-aos="fade-up" data-aos-delay="400">Працюю як із гострими станами (інсульти, травми, неврологічні кризи), так і з хронічними розладами
+                (РАС, ДЦП, грижі міжхребцевих дисків, когнітивні порушення).</li>
+            </ul>
+          </div>
+          <div class="image-wrapper" data-aos="fade-up" data-aos-delay="400">
+            <img src="assets/logo.png" loading="lazy" alt="Тарас Волошин">
+          </div>
+        </div>
+
+        <div class="bordered-container" data-aos="fade-up" data-aos-delay="500">
+          <h4><em>КРЕДО</em></h4>
+          <p>Кожна людина має потенціал до відновлення. Моє завдання-допомогти цей потенціал реалізувати. Бо тільки
+            маючи здоров’я та енергію, можна реалізувати свої мрії та таланти.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <!-- <section id="services" class="services">
+    <div class="container">
+      <h2>Our Services</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>Web Design</h3>
+          <p>Beautiful and responsive designs tailored to your needs.</p>
+        </div>
+        <div class="service-card">
+          <h3>Development</h3>
+          <p>Clean, efficient code that brings your vision to life.</p>
+        </div>
+        <div class="service-card">
+          <h3>Support</h3>
+          <p>Ongoing maintenance and support for your website.</p>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+  <section id="certificates" class="section section--certificates certificates">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up" data-aos-delay="200">
+        <h2>СЕРТИФІКАТИ</h2>
+      </div>
+
+      <div class="slider-container" data-aos="fade-up" data-aos-delay="300">
+        <div class="slider--cert swiper">
+          <div class="swiper-wrapper">
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-1.png" loading="lazy" data-full="assets/certificates/cert-1.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-2.png" loading="lazy" data-full="assets/certificates/cert-2.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-3.png" loading="lazy" data-full="assets/certificates/cert-3.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-4.png" loading="lazy" data-full="assets/certificates/cert-4.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-5.png" loading="lazy" data-full="assets/certificates/cert-5.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-6.png" loading="lazy" data-full="assets/certificates/cert-6.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-7.png" loading="lazy" data-full="assets/certificates/cert-7.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-8.png" loading="lazy" data-full="assets/certificates/cert-8.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-9.png" loading="lazy" data-full="assets/certificates/cert-9.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-10.png" loading="lazy" data-full="assets/certificates/cert-10.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-11.png" loading="lazy" data-full="assets/certificates/cert-11.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-12.png" loading="lazy" data-full="assets/certificates/cert-12.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-13.png" loading="lazy" data-full="assets/certificates/cert-13.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-14.png" loading="lazy" data-full="assets/certificates/cert-14.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-15.png" loading="lazy" data-full="assets/certificates/cert-15.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-16.png" loading="lazy" data-full="assets/certificates/cert-16.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-17.png" loading="lazy" data-full="assets/certificates/cert-17.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-18.png" loading="lazy" data-full="assets/certificates/cert-18.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-19-sm.jpg" loading="lazy" data-full="assets/certificates/cert-19-sm.jpg" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-19.png" loading="lazy" data-full="assets/certificates/cert-19.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-20.png" loading="lazy" data-full="assets/certificates/cert-20.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-21.png" loading="lazy" data-full="assets/certificates/cert-21.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-22.png" loading="lazy" data-full="assets/certificates/cert-22.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-23.jpg" loading="lazy" data-full="assets/certificates/cert-23.jpg" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-24.png" loading="lazy" data-full="assets/certificates/cert-24.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-25.png" loading="lazy" data-full="assets/certificates/cert-25.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-26.png" loading="lazy" data-full="assets/certificates/cert-26.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-27.png" loading="lazy" data-full="assets/certificates/cert-27.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-28-sm.jpg" loading="lazy" data-full="assets/certificates/cert-28-sm.jpg" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-28.png" loading="lazy" data-full="assets/certificates/cert-28.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-29.png" loading="lazy" data-full="assets/certificates/cert-29.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-30.png" loading="lazy" data-full="assets/certificates/cert-30.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-31-sm.jpg" loading="lazy" data-full="assets/certificates/cert-31-sm.jpg" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-31.png" loading="lazy" data-full="assets/certificates/cert-31.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-32.png" loading="lazy" data-full="assets/certificates/cert-32.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-33.png" loading="lazy" data-full="assets/certificates/cert-33.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-34.png" loading="lazy" data-full="assets/certificates/cert-34.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-35.png" loading="lazy" data-full="assets/certificates/cert-35.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-36.png" loading="lazy" data-full="assets/certificates/cert-36.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-37.png" loading="lazy" data-full="assets/certificates/cert-37.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-38.png" loading="lazy" data-full="assets/certificates/cert-38.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-39.png" loading="lazy" data-full="assets/certificates/cert-39.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-40.png" loading="lazy" data-full="assets/certificates/cert-40.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-41.png" loading="lazy" data-full="assets/certificates/cert-41.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+              <div class="swiper-slide"><div class="certificates-card"><img data-src="assets/certificates/cert-42.png" loading="lazy" data-full="assets/certificates/cert-42.png" alt="Certificate" class="certificate-img swiper-lazy"><div class="swiper-lazy-preloader"></div></div></div>
+          </div>
+
+          <div class="swiper-pagination" data-aos="fade-up" data-aos-delay="200"></div>
+          <!-- <div class="swiper-scrollbar"></div> -->
+        </div>
+        <div class="swiper-button-prev slider--main-prev" data-aos="fade-up" data-aos-delay="200">
+          <svg class="icon icon-arrow" width="56" height="77" viewBox="0 0 56 77" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_50_22)">
+              <path
+                d="M28.0035 19.25L0 0V9.48228L14.2085 19.25L42.212 38.5L14.2085 57.75L0 67.5177V77L28.0035 57.75L56 38.5L28.0035 19.25Z"
+                fill="#FC9340" />
+            </g>
+            <defs>
+              <clipPath id="clip0_50_22">
+                <rect width="56" height="77" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+        </div>
+        <div class="swiper-button-next slider--main-next" data-aos="fade-up" data-aos-delay="200">
+          <svg class="icon icon-arrow" width="56" height="77" viewBox="0 0 56 77" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_50_22)">
+              <path
+                d="M28.0035 19.25L0 0V9.48228L14.2085 19.25L42.212 38.5L14.2085 57.75L0 67.5177V77L28.0035 57.75L56 38.5L28.0035 19.25Z"
+                fill="#FC9340" />
+            </g>
+            <defs>
+              <clipPath id="clip0_50_22">
+                <rect width="56" height="77" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Popup -->
+    <div class="certificate-modal" id="certificateModal">
+      <span class="modal-close">&times;</span>
+      <img class="modal-image" src="" alt="">
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <!-- <section id="contact" class="contact">
+    <div class="container">
+      <h2>Get In Touch</h2>
+      <form class="contact-form">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit" class="submit-button">Send Message</button>
+      </form>
+    </div>
+  </section> -->
+
+
+
+  <!-- Footer -->
+  <footer id="contacts" class="section section--contacts contacts">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up" data-aos-delay="200">
+        <h2>КОНТАКТИ</h2>
+      </div>
+
+      <div class="content-wrapper">
+        <div class="grid">
+          <div class="grid__item footer__contacts" data-aos="fade-up" data-aos-delay="300">
+            <h3>Тускавець</h3>
+
+            <ul class="">
+              <li>
+                <a href="tel:+380631766891">
+                  <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_56_4)">
+                      <path
+                        d="M14.9986 2.18858C22.0616 2.18858 27.8089 7.93635 27.8089 15C27.8089 22.0637 22.0616 27.8114 14.9986 27.8114C7.93563 27.8114 2.18838 22.0664 2.18838 15C2.18838 7.93361 7.93563 2.18858 14.9986 2.18858ZM14.9986 0C6.7156 0 0 6.71621 0 15C0 23.2838 6.7156 30 14.9986 30C23.2817 30 29.9973 23.2838 29.9973 15C29.9973 6.71621 23.2844 0 14.9986 0Z"
+                        fill="white" />
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M19.534 16.3705C19.3289 16.2583 18.3222 15.7139 18.1335 15.6373C17.9447 15.5607 17.8052 15.5197 17.6602 15.7249C17.5125 15.9273 17.094 16.3842 16.9681 16.5182C16.8396 16.6523 16.7192 16.666 16.5141 16.5538C16.3089 16.4416 15.6442 16.1954 14.8728 15.454C14.2737 14.8768 13.8798 14.1764 13.7649 13.9631C13.65 13.7497 13.7649 13.6402 13.8716 13.5418C13.9701 13.4515 14.0904 13.3037 14.1998 13.1861C14.3093 13.0685 14.3476 12.9837 14.4214 12.8469C14.4953 12.7101 14.4652 12.587 14.4187 12.4803C14.3694 12.3736 13.9919 11.3313 13.8333 10.9045C13.6746 10.4805 13.4996 10.5434 13.3765 10.5379C13.2534 10.5325 13.1166 10.5106 12.9771 10.5051C12.8376 10.4996 12.6078 10.5434 12.4108 10.7458C12.2111 10.9483 11.6531 11.4325 11.6148 12.4611C11.5765 13.4898 12.2877 14.5102 12.3862 14.6525C12.4847 14.7947 13.743 17.0243 15.8357 17.9408C17.9283 18.8573 17.9392 18.5782 18.3222 18.5563C18.7079 18.5372 19.5778 18.0967 19.7693 17.6153C19.9608 17.1338 19.9772 16.7152 19.9279 16.6277C19.8787 16.5374 19.7419 16.4799 19.5368 16.3678L19.534 16.3705ZM15.6961 21.3222C14.312 21.3222 13.0236 20.9063 11.9485 20.195L9.33069 21.0322L10.1814 18.5016C9.36625 17.3772 8.88481 15.9984 8.88481 14.5075C8.88481 10.7513 11.9403 7.6955 15.6961 7.6955C19.452 7.6955 22.5075 10.7513 22.5075 14.5075C22.5075 18.2636 19.452 21.3194 15.6961 21.3194V21.3222ZM15.6961 6.32764C11.1771 6.32764 7.51433 9.99078 7.51433 14.5102C7.51433 16.0559 7.9438 17.5031 8.68785 18.7369L7.21069 23.1277L11.7406 21.6778C12.9142 22.3262 14.26 22.6955 15.6961 22.6955C20.2152 22.6955 23.8807 19.0324 23.8807 14.5129C23.8807 9.99351 20.2179 6.33037 15.6961 6.33037V6.32764Z"
+                        fill="white" />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_56_4">
+                        <rect width="30" height="30" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+
+                  +38 063 176 6891
+                </a>
+              </li>
+              <li>
+                <a href="https://wa.me/380674516998">
+                  <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_56_8)">
+                      <path
+                        d="M14.9986 2.18838C22.0616 2.18838 27.8089 7.93563 27.8089 14.9986C27.8089 22.0616 22.0616 27.8089 14.9986 27.8089C7.93563 27.8089 2.18838 22.0644 2.18838 14.9986C2.18838 7.93289 7.93563 2.18838 14.9986 2.18838ZM14.9986 0C6.7156 0 0 6.7156 0 14.9986C0 23.2817 6.7156 29.9973 14.9986 29.9973C23.2817 29.9973 29.9973 23.2817 29.9973 14.9986C29.9973 6.7156 23.2844 0 14.9986 0Z"
+                        fill="white" />
+                      <path
+                        d="M21.5775 18.4346C21.0933 18.0462 20.5763 17.696 20.0675 17.3377C19.0526 16.6237 18.1253 16.569 17.3676 17.7152C16.9436 18.358 16.3472 18.3881 15.7236 18.1036C14.0084 17.3267 12.6817 16.1259 11.9076 14.3834C11.5656 13.612 11.5684 12.9199 12.3726 12.3755C12.7966 12.0883 13.2261 11.7464 13.1932 11.1145C13.1495 10.2911 11.1526 7.54466 10.3648 7.2547C10.0392 7.13434 9.71371 7.14255 9.38272 7.2547C7.53354 7.87565 6.7676 9.39658 7.50071 11.1965C9.68909 16.5663 13.5379 20.3057 18.8365 22.5898C19.1402 22.7184 19.4739 22.7703 19.6435 22.8168C20.8498 22.8278 22.2641 21.6652 22.6717 20.5136C23.0656 19.403 22.234 18.9626 21.5775 18.4346Z"
+                        fill="white" />
+                      <path
+                        d="M15.636 7.59648C19.5095 8.19281 21.2985 10.0338 21.7909 13.9373C21.8374 14.2984 21.7033 14.84 22.2176 14.851C22.7537 14.8619 22.6252 14.3258 22.6306 13.9674C22.6771 10.2909 19.4712 6.88526 15.7509 6.75942C15.4692 6.80046 14.8892 6.5652 14.8537 7.19436C14.8291 7.61836 15.3187 7.54998 15.6388 7.59922L15.636 7.59648Z"
+                        fill="white" />
+                      <path
+                        d="M16.3937 8.6661C16.0217 8.62233 15.5293 8.44452 15.4418 8.96153C15.3515 9.50315 15.8986 9.44845 16.2515 9.52777C18.645 10.0639 19.4766 10.9338 19.8705 13.3082C19.928 13.6556 19.8131 14.1918 20.4012 14.1042C20.8362 14.0386 20.6802 13.5763 20.7158 13.3055C20.7349 11.0268 18.7818 8.95332 16.391 8.6661H16.3937Z"
+                        fill="white" />
+                      <path
+                        d="M16.6126 10.5288C16.3637 10.5342 16.1202 10.5616 16.0272 10.8269C15.8904 11.2236 16.1777 11.3193 16.4731 11.3658C17.4551 11.5245 17.9721 12.1017 18.0706 13.081C18.098 13.3463 18.2648 13.5624 18.522 13.5323C18.8776 13.4885 18.9104 13.174 18.8995 12.8731C18.9159 11.7734 17.674 10.5014 16.6126 10.5288Z"
+                        fill="white" />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_56_8">
+                        <rect width="30" height="30" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+
+                  +38 067 451 6998
+                </a>
+              </li>
+              <li>
+                <a href="mailto:voloshyntaras1984@gmail.com">
+                  <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_57_29)">
+                      <path
+                        d="M14.9986 2.13641C22.0616 2.13641 27.8089 7.74714 27.8089 14.6424C27.8089 21.5376 22.0616 27.1484 14.9986 27.1484C7.93563 27.1484 2.18838 21.5403 2.18838 14.6424C2.18838 7.74447 7.93563 2.13641 14.9986 2.13641ZM14.9986 0C6.7156 0 0 6.5561 0 14.6424C0 22.7287 6.7156 29.2848 14.9986 29.2848C23.2817 29.2848 29.9973 22.7287 29.9973 14.6424C29.9973 6.5561 23.2844 0 14.9986 0Z"
+                        fill="white" />
+                      <path
+                        d="M14.8509 6.09409C15.1381 6.03801 15.2722 6.16085 15.5074 6.27568C17.9092 7.46406 20.2316 9.26131 22.6415 10.4924C22.9643 10.65 23.1367 10.9197 23.1476 11.2749C22.9643 14.111 23.3856 17.2221 23.1449 20.0261C23.0601 21.0169 22.4172 21.786 21.375 21.8821H8.55109C7.45416 21.7219 6.90433 20.9528 6.83594 19.9086C6.64993 17.1019 6.98366 14.1029 6.83594 11.2749C6.84688 10.9224 7.01922 10.65 7.342 10.4924L14.8509 6.09409ZM21.3395 11.1227L15.0123 7.42934L8.64409 11.1227L15.0123 15.3661L21.3395 11.1227ZM21.9002 12.3377L21.6787 12.3938L15.1819 16.6826C14.9548 16.7654 14.7497 16.6826 14.5637 16.5545L8.30763 12.3938L8.08605 12.3377V20.0849C8.08605 20.2451 8.37054 20.635 8.57844 20.635L21.2464 20.6617C21.5282 20.7018 21.9002 20.3199 21.9002 20.0849V12.3377Z"
+                        fill="white" />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_57_29">
+                        <rect width="30" height="29.2848" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+
+                  Voloshyntaras1984@gmail.com
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="grid__item" data-aos="fade-up" data-aos-delay="300">
+            <h3>Соцмережі</h3>
+
+            <ul class="footer__social">
+              <li class="instagram">
+                <a href="https://www.instagram.com/">
+                  <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_56_17)">
+                      <path
+                        d="M15 2.18838C22.0637 2.18838 27.8114 7.93563 27.8114 14.9986C27.8114 22.0616 22.0637 27.8089 15 27.8089C7.93635 27.8089 2.18858 22.0644 2.18858 14.9986C2.18858 7.93289 7.93635 2.18838 15 2.18838ZM15 0C6.71621 0 0 6.7156 0 14.9986C0 23.2817 6.71621 29.9973 15 29.9973C23.2838 29.9973 30 23.2817 30 14.9986C30 6.7156 23.2865 0 15 0Z"
+                        fill="white" />
+                      <path
+                        d="M21.0815 7.39697H8.92121C8.08134 7.39697 7.40015 8.08084 7.40015 8.9179V21.0771C7.40015 21.9169 8.08408 22.598 8.92121 22.598H21.0815C21.9214 22.598 22.6026 21.9142 22.6026 21.0771V8.9179C22.6026 8.07811 21.9187 7.39697 21.0815 7.39697ZM15 11.9598C16.6743 11.9598 18.0394 13.3248 18.0394 14.9989C18.0394 16.673 16.6743 18.038 15 18.038C13.3257 18.038 11.9606 16.673 11.9606 14.9989C11.9606 13.3248 13.3257 11.9598 15 11.9598ZM9.29874 21.0798C9.07168 21.0798 8.92121 20.9267 8.92121 20.7023V14.2411H10.5189C10.4395 14.4709 10.4395 14.7773 10.4395 15.0016C10.4395 17.5128 12.4913 19.5644 15.0027 19.5644C17.5141 19.5644 19.5659 17.5128 19.5659 15.0016C19.5659 14.7746 19.5659 14.4709 19.4893 14.2411H21.0843V20.7023C21.0843 20.9294 20.9311 21.0798 20.7067 21.0798H9.30148H9.29874ZM21.0815 10.8191C21.0815 11.0461 20.9283 11.1966 20.704 11.1966H19.1829C18.9559 11.1966 18.8054 11.0434 18.8054 10.8191V9.29813C18.8054 9.07109 18.9586 8.92063 19.1829 8.92063H20.704C20.9311 8.92063 21.0815 9.07382 21.0815 9.29813V10.8191Z"
+                        fill="white" />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_56_17">
+                        <rect width="30" height="30" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </a>
+              </li>
+              <li class="fb">
+                <a href="https://www.facebook.com/">
+                  <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_56_25)">
+                      <path
+                        d="M14.9986 2.18838C22.0616 2.18838 27.8089 7.93563 27.8089 14.9986C27.8089 22.0616 22.0616 27.8089 14.9986 27.8089C7.93563 27.8089 2.18838 22.0644 2.18838 14.9986C2.18838 7.93289 7.93563 2.18838 14.9986 2.18838ZM14.9986 0C6.7156 0 0 6.7156 0 14.9986C0 23.2817 6.7156 29.9973 14.9986 29.9973C23.2817 29.9973 29.9973 23.2817 29.9973 14.9986C29.9973 6.7156 23.2844 0 14.9986 0Z"
+                        fill="white" />
+                      <path
+                        d="M18.8009 15.0041H16.3144V23.8698H12.6297V15.0041H10.8762V11.8719H12.6297V9.84496C12.6297 8.39515 13.319 6.12744 16.3472 6.12744L19.0772 6.13838V9.1775H17.0967C16.7712 9.1775 16.3144 9.33889 16.3144 10.031V11.8747H19.121L18.7982 15.0041H18.8009Z"
+                        fill="white" />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_56_25">
+                        <rect width="30" height="30" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </a>
+              </li>
+              <li class="twitter">
+                <a href="#">
+                  <svg width="30" height="31" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_56_21)">
+                      <path
+                        d="M15 2.20987C22.0637 2.20987 27.8114 8.01356 27.8114 15.1459C27.8114 22.2783 22.0637 28.082 15 28.082C7.93635 28.082 2.18858 22.2811 2.18858 15.1459C2.18858 8.01079 7.93635 2.20987 15 2.20987ZM15 0C6.71621 0 0 6.78155 0 15.1459C0 23.5103 6.71621 30.2918 15 30.2918C23.2838 30.2918 30 23.5103 30 15.1459C30 6.78155 23.2865 0 15 0Z"
+                        fill="white" />
+                      <path
+                        d="M15.9685 9.94453V5.94189H13.4106C13.3531 6.0883 13.3258 6.26509 13.3258 6.44464C13.2984 6.53027 13.2683 6.59381 13.2683 6.6822C13.0057 8.16558 12.2424 9.20146 10.9511 9.76774C10.5681 9.94729 10.2152 9.97215 9.83496 9.94729V13.1737H11.7144C11.7445 17.7122 11.7445 20.0547 11.7445 20.1735V20.4414C11.9798 22.422 13.0057 23.6098 14.8277 24.0546C15.5608 24.259 16.3515 24.3501 17.1448 24.3501C18.1707 24.317 19.1693 24.1402 20.1678 23.817V20.0216C19.5851 20.1983 19.0516 20.3503 18.5838 20.4967C17.6756 20.7646 16.9123 20.5878 16.2913 19.9939C16.2338 19.9028 16.1463 19.784 16.1162 19.6652C16.0287 19.1901 15.9739 18.6873 15.9739 18.215V13.1737H20.0502V9.94729H15.9712L15.9685 9.94453Z"
+                        fill="white" />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_56_21">
+                        <rect width="30" height="30.2946" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
+      </div>
+      <!-- <p>&copy; 2026 DDDD. All rights reserved.</p> -->
+    </div>
+  </footer>
+  
+  <script defer src="https://unpkg.com/aos@2.3.4/dist/aos.js" ></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+  <script defer src="sc.js"></script>
+</body>
+
+</html>
