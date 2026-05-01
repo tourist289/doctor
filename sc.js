@@ -252,6 +252,73 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  const priceElements = document.querySelectorAll('[data-price-ua]');
+
+  if (priceElements.length === 0) {
+    return;
+  }
+
+  const updatePrices = (isUA) => {
+    priceElements.forEach((element) => {
+      const nextValue = isUA
+        ? element.getAttribute('data-price-ua')
+        : element.getAttribute('data-price-int');
+
+      if (nextValue) {
+        element.textContent = nextValue;
+      }
+    });
+  };
+
+  const geoProviders = [
+    () => fetch('https://ipwho.is/').then((response) => {
+      if (!response.ok) {
+        throw new Error('ipwho.is lookup failed');
+      }
+
+      return response.json();
+    }).then((data) => data.country_code),
+    () => fetch('https://ipapi.co/json/').then((response) => {
+      if (!response.ok) {
+        throw new Error('ipapi.co lookup failed');
+      }
+
+      return response.json();
+    }).then((data) => data.country),
+  ];
+
+  const resolveCountryCode = async () => {
+    for (const getCountryCode of geoProviders) {
+      try {
+        const countryCode = await getCountryCode();
+
+        if (countryCode) {
+          return countryCode.toUpperCase();
+        }
+      } catch (error) {
+        continue;
+      }
+    }
+
+    return 'UA';
+  };
+
+  resolveCountryCode()
+    .then((countryCode) => {
+      updatePrices(countryCode === 'UA');
+    })
+    .catch(() => {
+      priceElements.forEach((element) => {
+        const fallbackValue = element.getAttribute('data-price-ua');
+
+        if (fallbackValue) {
+          element.textContent = fallbackValue;
+        }
+      });
+    });
+});
+
 // document.addEventListener("DOMContentLoaded", () => {
 //   AOS.init({
 //     duration: 600,
