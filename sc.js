@@ -78,6 +78,75 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  const directionSummaries = document.querySelectorAll('.direction-item .summary');
+
+  directionSummaries.forEach((summary) => {
+    const card = summary.closest('.direction-item');
+    if (!card) {
+      return;
+    }
+
+    summary.setAttribute('role', 'button');
+    summary.setAttribute('tabindex', '0');
+    summary.setAttribute('aria-expanded', 'false');
+
+    const collapsedText = summary.textContent;
+    const expandedText = collapsedText.replace(/\.{4}\s*$/, '');
+    const detailParagraphs = Array.from(card.querySelectorAll('p:not(.summary)'));
+
+    if (detailParagraphs.length === 0) {
+      return;
+    }
+
+    const details = document.createElement('div');
+    details.className = 'direction-item-details';
+    details.setAttribute('aria-hidden', 'true');
+
+    detailParagraphs.forEach((paragraph) => {
+      details.appendChild(paragraph);
+    });
+
+    summary.insertAdjacentElement('afterend', details);
+
+    const syncExpandedHeight = () => {
+      if (card.classList.contains('expanded')) {
+        details.style.maxHeight = `${details.scrollHeight}px`;
+      }
+    };
+
+    const toggleCard = () => {
+      const isExpanded = !card.classList.contains('expanded');
+
+      if (isExpanded) {
+        card.classList.add('expanded');
+        details.setAttribute('aria-hidden', 'false');
+        details.style.maxHeight = `${details.scrollHeight}px`;
+      } else {
+        details.style.maxHeight = `${details.scrollHeight}px`;
+        requestAnimationFrame(() => {
+          card.classList.remove('expanded');
+          details.setAttribute('aria-hidden', 'true');
+          details.style.maxHeight = '0px';
+        });
+      }
+
+      summary.setAttribute('aria-expanded', String(isExpanded));
+      summary.textContent = isExpanded ? expandedText : collapsedText;
+    };
+
+    window.addEventListener('resize', syncExpandedHeight);
+
+    summary.addEventListener('click', toggleCard);
+    summary.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggleCard();
+      }
+    });
+  });
+});
+
 // Modal logic for .section-about .grid .item
 document.addEventListener('DOMContentLoaded', () => {
     const aboutItems = document.querySelectorAll('.section-about .grid .item');

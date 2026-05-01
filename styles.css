@@ -741,6 +741,27 @@ footer {
   line-height: 1.55;
 }
 
+.direction-item .summary {
+  cursor: pointer;
+}
+
+.direction-item-details {
+  width: 100%;
+  display: grid;
+  gap: 10px;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: max-height 0.35s ease, opacity 0.25s ease, transform 0.25s ease;
+  will-change: max-height, opacity, transform;
+}
+
+.direction-item.expanded .direction-item-details {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Desktop placement: custom column widths */
 @media (min-width: 750px) {
   .directions .grid {
