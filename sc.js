@@ -271,38 +271,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  const geoProviders = [
-    () => fetch('https://ipwho.is/').then((response) => {
-      if (!response.ok) {
-        throw new Error('ipwho.is lookup failed');
-      }
-
-      return response.json();
-    }).then((data) => data.country_code),
-    () => fetch('https://ipapi.co/json/').then((response) => {
+  const resolveCountryCode = () => fetch('https://ipapi.co/json/')
+    .then((response) => {
       if (!response.ok) {
         throw new Error('ipapi.co lookup failed');
       }
 
       return response.json();
-    }).then((data) => data.country),
-  ];
-
-  const resolveCountryCode = async () => {
-    for (const getCountryCode of geoProviders) {
-      try {
-        const countryCode = await getCountryCode();
-
-        if (countryCode) {
-          return countryCode.toUpperCase();
-        }
-      } catch (error) {
-        continue;
-      }
-    }
-
-    return 'UA';
-  };
+    })
+    .then((data) => (data.country || 'UA').toUpperCase());
 
   resolveCountryCode()
     .then((countryCode) => {
