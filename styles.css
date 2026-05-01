@@ -219,9 +219,11 @@ ul {
   color: rgba(255, 255, 255, 0.9);
 }
 
+.header .icon.icon-instagram,
 .header .icon.icon-fb {
   position: relative;
   top: 3px;
+  margin-left: 10px;
 }
 
 /* Hamburger Menu Button */
