@@ -88,6 +88,7 @@ ul {
   font-weight: 500;
   font-size: 120%;
   letter-spacing: 7%;
+  text-transform: none;
 }
 
 @media screen and (min-width: 750px) {
@@ -193,6 +194,7 @@ ul {
 .header-row3 {
   display: flex;
   gap: 25px;
+  row-gap: 10px !important;
   flex-wrap: wrap;
   justify-content: flex-end;
   align-items: center;
