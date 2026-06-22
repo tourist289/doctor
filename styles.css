@@ -112,7 +112,11 @@ ul {
 }
 
 
-
+.header__language-switcher {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+}
 
 
 
